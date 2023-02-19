@@ -16,17 +16,8 @@ public class BookController {
     @Autowired // get the repo
     private BookRepo bookRepo;
 
-    /*TODO:
-    *  Retrieve list of books by genre
-    *       Request param - genre
-    *  Retrieve list of top 10 bestsellers (organize by most copies sold)
-    *  Retrieve list of books with >= specified rating
-    *       Request param - Rating
-    *  Update price of all books by publisher by discount percent
-    *       Request param - Discount, publisher*/
-
     @PostMapping(path="/addBook") // Only POST req
-    public @ResponseBody String addBook (@RequestParam String isbn
+    public @ResponseBody String addBook (@RequestParam Integer isbn
                                         , @RequestParam String name,
                                          @RequestParam String desc,
                                          @RequestParam Double price,

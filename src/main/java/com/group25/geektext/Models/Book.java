@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 public class Book {
     @Id //Primary key?
     @Column
-    private String ISBN;
+    private Integer ISBN;
 
     @Column
     private String bookName;
@@ -37,7 +37,7 @@ public class Book {
     @Column
     private double rating;
 
-    public String getISBN() {
+    public Integer getISBN() {
         return ISBN;
     }
 
@@ -81,7 +81,7 @@ public class Book {
         this.bookName = bookName;
     }
 
-    public void setISBN(String ISBN) {
+    public void setISBN(Integer ISBN) {
         this.ISBN = ISBN;
     }
 
