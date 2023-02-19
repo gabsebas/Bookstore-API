@@ -17,7 +17,7 @@ public class BookController {
     private BookRepo bookRepo;
 
     @PostMapping(path="/addBook") // Only POST req
-    public @ResponseBody String addBook (@RequestParam Integer isbn
+    public @ResponseBody String addBook (@RequestParam String isbn
                                         , @RequestParam String name,
                                          @RequestParam String desc,
                                          @RequestParam Double price,
