@@ -15,9 +15,11 @@ public class BookController {
     @Autowired // get the repo
     private BookRepo bookRepo;
 
+    private Integer book_id;
+
     @PostMapping(path="/addBook") // Only POST req
-    public @ResponseBody String addBook (@RequestParam String isbn
-                                        ,@RequestParam String name,
+    public @ResponseBody String addBook (@RequestParam String isbn,
+                                         @RequestParam String name,
                                          @RequestParam String desc,
                                          @RequestParam Double price,
                                          @RequestParam String author,
@@ -30,6 +32,7 @@ public class BookController {
         // @RequestParam = it is a parameter from the GET or POST request
 
         Book n = new Book();
+        n.setBook_ID(book_id++);
         n.setISBN(isbn);
         n.setBookName(name);
         n.setDescription(desc);
@@ -62,14 +65,14 @@ public class BookController {
         return bookRepo.findBooksbyCopiesSold().subList(0,10);
     }
 
+    /*TODO: May require being revised when Rating is implemented*/
     @GetMapping(path="/ratings")
     public @ResponseBody Iterable<Book> getBooksbyRatings(@RequestParam double rating){
         return bookRepo.findBooksByRatings(rating);
     }
 
 
-    /*TODO: Debug this*/
-
+      /*TODO: Debug this*/
 //    @PatchMapping(path="/updatebooks/{id}")
 //    public @ResponseBody ResponseEntity<Book> updateBooksByPublisher(@PathVariable int id, @RequestParam String pub,
 //                                                                     @RequestParam int discount)

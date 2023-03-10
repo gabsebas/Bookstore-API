@@ -8,6 +8,9 @@ import jakarta.persistence.Id;
 public class Book {
     @Id //Primary key?
     @Column
+    private Integer book_ID;
+
+    @Column
     private String ISBN;
 
     @Column
@@ -34,8 +37,13 @@ public class Book {
     @Column
     private Integer copies_sold;
 
+    /*TODO: Rating may be its own class - revise when rating is implemented.*/
     @Column
     private double rating;
+
+    public Integer getBook_ID() {
+        return book_ID;
+    }
 
     public String getISBN() {
         return ISBN;
@@ -115,5 +123,9 @@ public class Book {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public void setBook_ID(Integer book_ID) {
+        this.book_ID = book_ID;
     }
 }
