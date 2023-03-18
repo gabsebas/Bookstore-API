@@ -3,10 +3,12 @@ package com.group25.geektext.Controller;
 import com.group25.geektext.Models.Book;
 import com.group25.geektext.Repo.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -73,16 +75,30 @@ public class BookController {
 
 
       /*TODO: Debug this*/
-//    @PatchMapping(path="/updatebooks/{id}")
-//    public @ResponseBody ResponseEntity<Book> updateBooksByPublisher(@PathVariable int id, @RequestParam String pub,
-//                                                                     @RequestParam int discount)
-//    {
-//        updateBookByPublisher(pub, discount);
+    @PatchMapping(path="/updatebooks/{id}")
+    public @ResponseBody ResponseEntity<String> updateBooksByPublisher(@PathVariable("id") int id,
+                                                                     @RequestParam String pub,
+                                                                     @RequestParam int discount)
+    {
+        List<Book> books = bookRepo.findBooksByPublisher(pub);
+        for(Book b: books){
+            double discounted = (discount/100.0) * b.getPrice();
+            double newPrice = b.getPrice() - discounted;
+            b.setPrice(newPrice);
+            bookRepo.save(b);
+        }
+
+        return new ResponseEntity<String>("Update Success", HttpStatus.OK);
+    }
+
+//    private void updateBooks(int discount, int id){
+//        Book updatedBook = bookRepo.findById(id).get();
+//        double price = updatedBook.getPrice();
+//        updatedBook.setPrice(price - ((discount/100) * price));
+//        bookRepo.save(updatedBook);
 //    }
 
-//    private void updateBookByPublisher(String pub, int discount){
-//        bookRepo.updateBookByPublisher(pub, discount);
-//    }
+
 
 //    @PatchMapping(path="/updatebooks/{pub:[a-zA-Z &+-]*}", consumes = "application/json-patch+json")
 //    public ResponseEntity<Book> updatePricesByPublisher(@PathVariable String pub,
