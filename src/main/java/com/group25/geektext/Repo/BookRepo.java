@@ -25,12 +25,6 @@ public interface BookRepo extends JpaRepository<Book, Integer> {
     @Query(value="SELECT * FROM book WHERE rating >= :rating", nativeQuery = true)
     List<Book> findBooksByRatings(@Param("rating") double rating);
 
-//    /*TODO: This is not working. Method not Allowed?*/
-//    @Modifying
-//    @Query(value="UPDATE book SET price = price - ((:discount/100) * price) WHERE publisher=:publisher",
-//            nativeQuery = true)
-//    void updateBookByPublisher(@Param("publisher") String publisher, @Param("discount") int discount);
-
     @Query(value="SELECT * FROM book WHERE publisher=:publisher", nativeQuery = true)
     List<Book> findBooksByPublisher(@Param("publisher") String publisher);
 

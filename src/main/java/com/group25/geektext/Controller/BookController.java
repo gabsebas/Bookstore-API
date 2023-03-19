@@ -74,7 +74,6 @@ public class BookController {
     }
 
 
-      /*TODO: Debug this*/
     @PatchMapping(path="/updatebooks/{id}")
     public @ResponseBody ResponseEntity<String> updateBooksByPublisher(@PathVariable("id") int id,
                                                                      @RequestParam String pub,
@@ -90,32 +89,5 @@ public class BookController {
 
         return new ResponseEntity<String>("Update Success", HttpStatus.OK);
     }
-
-//    private void updateBooks(int discount, int id){
-//        Book updatedBook = bookRepo.findById(id).get();
-//        double price = updatedBook.getPrice();
-//        updatedBook.setPrice(price - ((discount/100) * price));
-//        bookRepo.save(updatedBook);
-//    }
-
-
-
-//    @PatchMapping(path="/updatebooks/{pub:[a-zA-Z &+-]*}", consumes = "application/json-patch+json")
-//    public ResponseEntity<Book> updatePricesByPublisher(@PathVariable String pub,
-//                                                                        @RequestBody JsonPatch patch)
-//    {
-//        Book b = bookRepo.findBookByPublisher(pub);=-
-//        Book bPatched = applyPatchToBook(patch, b);
-//        return ResponseEntity.ok(bPatched);
-////        for(Book x:bookRepo.findAll()){
-////            if(x.getPublisher().equalsIgnoreCase(pub)){
-////                x.setPrice(x.getPrice() - ((discount/100) * x.getPrice()));
-////                bookRepo.save(x);
-////            }
-////
-////        }
-////        //bookRepo.updateBooksByPublisher(pub, discount);
-////        return new ResponseEntity<String>("Update Success", HttpStatus.OK);
-//    }
 
 }
