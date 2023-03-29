@@ -8,9 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-// CRUD refers Create, Read, Update, Delete
-
 public interface BookRepo extends JpaRepository<Book, Integer> {
 
     @Query(value = "SELECT * FROM book", nativeQuery = true)

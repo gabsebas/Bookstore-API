@@ -12,14 +12,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(path="/book") // after Application, /book
+@RequestMapping(path="/book")
 public class BookController {
-    @Autowired // get the repo
+    @Autowired
     private BookRepo bookRepo;
 
     private Integer book_id;
 
-    @PostMapping(path="/addBook") // Only POST req
+    @PostMapping(path="/addBook")
     public @ResponseBody String addBook (@RequestParam String isbn,
                                          @RequestParam String name,
                                          @RequestParam String desc,
@@ -30,8 +30,6 @@ public class BookController {
                                          @RequestParam Integer year,
                                          @RequestParam Integer copies,
                                          @RequestParam Double rating) {
-        // @ResponseBody = the returned String is the response, not a view name
-        // @RequestParam = it is a parameter from the GET or POST request
 
         Book n = new Book();
         n.setBook_ID(book_id++);
@@ -50,7 +48,7 @@ public class BookController {
         return "Book Added!";
     }
 
-    @GetMapping(path="/all") //get books
+    @GetMapping(path="/all")
     public @ResponseBody Iterable<Book> getAllBooks() {
         // JSON with all books
         //return bookRepo.findAll();
@@ -71,6 +69,11 @@ public class BookController {
     @GetMapping(path="/ratings")
     public @ResponseBody Iterable<Book> getBooksbyRatings(@RequestParam double rating){
         return bookRepo.findBooksByRatings(rating);
+    }
+
+    @GetMapping(path="/publishers")
+    public @ResponseBody Iterable<Book> getBooksbyPublishers(@RequestParam String pub){
+        return bookRepo.findBooksByPublisher(pub);
     }
 
 
