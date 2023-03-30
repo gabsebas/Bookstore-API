@@ -3,21 +3,23 @@ package com.group25.geektext.Controller;
 import com.group25.geektext.Models.Book;
 import com.group25.geektext.Repo.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(path="/book") // after Application, /book
+@RequestMapping(path="/book")
 public class BookController {
-    @Autowired // get the repo
+    @Autowired
     private BookRepo bookRepo;
 
     private Integer book_id;
 
-    @PostMapping(path="/addBook") // Only POST req
+    @PostMapping(path="/addBook")
     public @ResponseBody String addBook (@RequestParam String isbn,
                                          @RequestParam String name,
                                          @RequestParam String desc,
@@ -28,8 +30,6 @@ public class BookController {
                                          @RequestParam Integer year,
                                          @RequestParam Integer copies,
                                          @RequestParam Double rating) {
-        // @ResponseBody = the returned String is the response, not a view name
-        // @RequestParam = it is a parameter from the GET or POST request
 
         Book n = new Book();
         n.setBook_ID(book_id++);
@@ -48,7 +48,7 @@ public class BookController {
         return "Book Added!";
     }
 
-    @GetMapping(path="/all") //get books
+    @GetMapping(path="/all")
     public @ResponseBody Iterable<Book> getAllBooks() {
         // JSON with all books
         //return bookRepo.findAll();
@@ -71,35 +71,26 @@ public class BookController {
         return bookRepo.findBooksByRatings(rating);
     }
 
+    @GetMapping(path="/publishers")
+    public @ResponseBody Iterable<Book> getBooksbyPublishers(@RequestParam String pub){
+        return bookRepo.findBooksByPublisher(pub);
+    }
 
-      /*TODO: Debug this*/
-//    @PatchMapping(path="/updatebooks/{id}")
-//    public @ResponseBody ResponseEntity<Book> updateBooksByPublisher(@PathVariable int id, @RequestParam String pub,
-//                                                                     @RequestParam int discount)
-//    {
-//        updateBookByPublisher(pub, discount);
-//    }
 
-//    private void updateBookByPublisher(String pub, int discount){
-//        bookRepo.updateBookByPublisher(pub, discount);
-//    }
+    @PatchMapping(path="/updatebooks/{id}")
+    public @ResponseBody ResponseEntity<String> updateBooksByPublisher(@PathVariable("id") int id,
+                                                                     @RequestParam String pub,
+                                                                     @RequestParam int discount)
+    {
+        List<Book> books = bookRepo.findBooksByPublisher(pub);
+        for(Book b: books){
+            double discounted = (discount/100.0) * b.getPrice();
+            double newPrice = b.getPrice() - discounted;
+            b.setPrice(newPrice);
+            bookRepo.save(b);
+        }
 
-//    @PatchMapping(path="/updatebooks/{pub:[a-zA-Z &+-]*}", consumes = "application/json-patch+json")
-//    public ResponseEntity<Book> updatePricesByPublisher(@PathVariable String pub,
-//                                                                        @RequestBody JsonPatch patch)
-//    {
-//        Book b = bookRepo.findBookByPublisher(pub);=-
-//        Book bPatched = applyPatchToBook(patch, b);
-//        return ResponseEntity.ok(bPatched);
-////        for(Book x:bookRepo.findAll()){
-////            if(x.getPublisher().equalsIgnoreCase(pub)){
-////                x.setPrice(x.getPrice() - ((discount/100) * x.getPrice()));
-////                bookRepo.save(x);
-////            }
-////
-////        }
-////        //bookRepo.updateBooksByPublisher(pub, discount);
-////        return new ResponseEntity<String>("Update Success", HttpStatus.OK);
-//    }
+        return new ResponseEntity<String>("Update Success", HttpStatus.OK);
+    }
 
 }

@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 
 @Entity //Make a table out of this class
 public class Book {
-    @Id //Primary key?
+    @Id
     @Column
     private Integer book_ID;
 

@@ -8,9 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-// CRUD refers Create, Read, Update, Delete
-
 public interface BookRepo extends JpaRepository<Book, Integer> {
 
     @Query(value = "SELECT * FROM book", nativeQuery = true)
@@ -25,13 +22,7 @@ public interface BookRepo extends JpaRepository<Book, Integer> {
     @Query(value="SELECT * FROM book WHERE rating >= :rating", nativeQuery = true)
     List<Book> findBooksByRatings(@Param("rating") double rating);
 
-    /*TODO: This is not working. Method not Allowed?*/
-    @Modifying
-    @Query(value="UPDATE book SET price = price - ((:discount/100) * price) WHERE publisher=:publisher",
-            nativeQuery = true)
-    void updateBookByPublisher(@Param("publisher") String publisher, @Param("discount") int discount);
-
     @Query(value="SELECT * FROM book WHERE publisher=:publisher", nativeQuery = true)
-    Book findBookByPublisher(@Param("publisher") String publisher);
+    List<Book> findBooksByPublisher(@Param("publisher") String publisher);
 
 }
