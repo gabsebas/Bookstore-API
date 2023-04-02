@@ -7,7 +7,7 @@ public class CreditCard{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Integer user_id;
+    private Integer card_id;
     private String card_holder;
     private Integer card_number;
     private String exp_date;
@@ -17,8 +17,8 @@ public class CreditCard{
 
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getCard_id() {
+        return card_id;
     }
 
     public CreditCard(String card_holder, Integer card_number, String exp_date, Integer cvv) {
@@ -28,8 +28,8 @@ public class CreditCard{
         this.cvv = cvv;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setCard_id(Integer card_id) {
+        this.card_id = card_id;
     }
 
     public String getCard_holder() {

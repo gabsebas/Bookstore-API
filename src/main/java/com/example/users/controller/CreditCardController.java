@@ -1,9 +1,7 @@
 package com.example.users.controller;
 
 import com.example.users.model.CreditCard;
-import com.example.users.repository.MySqlRepository;
 import com.example.users.repository.CreditCardRepository;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +13,7 @@ import java.util.Map;
 public class CreditCardController {
     @Autowired
     CreditCardRepository creditCardRepository;
-    @PostMapping("create-credit-card")
+    @PostMapping("{username}/card")
     public CreditCard createCreditCard(@RequestBody Map<String,String> body){
         String card_holder = body.get("card_holder");
         Integer card_number = Integer.valueOf(body.get("card_number"));
