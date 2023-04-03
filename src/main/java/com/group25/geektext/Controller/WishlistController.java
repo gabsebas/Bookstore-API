@@ -18,6 +18,8 @@ public class WishlistController {
   @Autowired
   private WishListRepository WishListRepository;
 
+  private int Wish_List_Id;
+
 
   @PostMapping(path = "/add") // Map ONLY POST Requests
   public @ResponseBody String addNewWishList(@RequestParam String Wish_List_Name
