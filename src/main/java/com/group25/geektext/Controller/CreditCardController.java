@@ -1,4 +1,4 @@
-package com.example.users.controller;
+package com.group25.geektext.Controller;
 
 import com.example.users.model.CreditCard;
 import com.example.users.repository.CreditCardRepository;

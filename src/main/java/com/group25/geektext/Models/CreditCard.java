@@ -1,4 +1,4 @@
-package com.example.users.model;
+package com.group25.geektext.Models;
 import javax.persistence.*;
 
 @Entity

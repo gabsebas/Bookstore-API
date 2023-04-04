@@ -1,4 +1,4 @@
-package com.example.users.repository;
+package com.group25.geektext.Repo;
 import com.example.users.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
