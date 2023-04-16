@@ -41,7 +41,7 @@ public class UserController {
                           @RequestBody Map<String, String> body){
       User currentUser = mySqlRepository.findByUsername(username).get();
       currentUser.setUsername(body.get("username"));
-      currentUser.setUsername(body.get("password"));
+      currentUser.setPassword(body.get("password"));
       currentUser.setFirst_name(body.get("first_name"));
       currentUser.setLast_name(body.get("last_name"));
       currentUser.setHome_address(body.get("home_address"));
