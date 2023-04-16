@@ -1,5 +1,5 @@
 package com.group25.geektext.Models;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "creditcard")
